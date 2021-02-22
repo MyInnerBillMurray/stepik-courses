@@ -1,0 +1,21 @@
+from xml.etree import ElementTree
+
+root = ElementTree.fromstring(input())
+colors = {"red": 0, "green": 0, "blue": 0}
+
+
+def getcubes(root, value):
+    colors[root.attrib['color']] += value
+    for child in root:
+        getcubes(child, value + 1)
+
+
+getcubes(root, 1)
+print(colors["red"], colors["green"], colors["blue"])
+
+# считываем данные в xml-формате как строку,
+# создаём словарь элементов(цветов),
+# определяем функцию:
+# 1. если есть аттрибут цвет - добавляем 1.
+# 2. выполняем функцию для каждого потомка.
+# Начинаем с 1 т.к. в корне изначально есть по одному цвету.
